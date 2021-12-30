@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { Link, useNavigate } from 'react-router-dom';
+
+import { loginInitiate } from '../redux/actions';
 
 import AmazonLogo from '../assets/Amazon_Logo.png'
 
@@ -8,12 +12,28 @@ import'../styles/Login.css';
 
 const Login = () => {
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
 
+    // Pulls user object from state (retunrs null if no user exists)
+    const { user } = useSelector(state => state.data);
+
+    // if user is logged in, reroute to home page
+    useEffect(() => {
+        if(user) {
+            navigate('/');
+        }
+    }, [user, navigate])
+
+
     const signIn = (e) => {
         e.preventDefault();
-        console.log('foofoofoofoofoofoofoofoofoo');
+        dispatch(loginInitiate(email, password));
+        setEmail("");
+        setPassword("");
     }
 
     return (
