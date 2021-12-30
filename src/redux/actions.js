@@ -2,14 +2,18 @@ import * as types from './actionTypes';
 
 import { auth } from '../utils/firebase';
 
-// import functions to create or sign in users from firebase/auth (requires auth object)
-// from utils/firebase.js to be passed in as a prop in order to work properly
+// import Auth'ing functions from firebase/auth
+//   requires auth object from utils/firebase.js as first prop
+// REFERENCE: https://firebase.google.com/docs/auth/web/start?authuser=0
 import { 
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut
     } from 'firebase/auth';
 
 // NOTE: dispatch is coming from redux-thunk, not directly from redux
+//       there is no import for 'dispatch', it is the global default unless overwritten 
+
 
 // Registration Functionality
 const registerStart = () => ({
@@ -38,6 +42,7 @@ export const registerInitiate = (email, password) => {
 
 
 
+
 // Login Functionality
 const loginStart = () => ({
     type: types.LOGIN_START
@@ -62,3 +67,48 @@ export const loginInitiate = (email, password) => {
         }).catch(error => dispatch(loginError(error.message)))
     }
 }
+
+
+
+
+// Sets user from firebase/auth to persist between reloads
+export const setUser = user => ({
+    type: types.SET_USER,
+    payload: user
+});
+
+
+
+
+// Logout Functionality
+const logoutStart = () => ({
+    type: types.LOGOUT_START
+});
+
+const logoutSuccess = () => ({
+    type: types.LOGOUT_SUCCESS,
+});
+
+const logoutError = (error) => ({
+    type: types.LOGOUT_FAIL,
+    payload: error
+});
+
+export const logoutInitiate = () => {
+    return function (dispatch) {
+        dispatch(logoutStart());
+        signOut(auth, (res) => {
+            dispatch(logoutSuccess)
+        })
+        .catch((error) => (dispatch(logoutError(error.message))))
+    }
+};
+
+
+
+
+// Add to Basket Functionality
+export const addToBasket = (item) => ({
+    type: types.ADD_TO_BASKET,
+    payload: item,
+});

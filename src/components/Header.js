@@ -8,8 +8,24 @@ import SearchIcon               from "@material-ui/icons/Search";
 import LocationOnOutlinedIcon   from "@material-ui/icons/LocationOnOutlined";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 
+import { useSelector, useDispatch } from 'react-redux'
+
+import { logoutInitiate } from '../redux/actions';
 
 const Header = () => {
+
+    // NOTE: useSelector allows access to global state store from aywhere in app
+    // NOTE: we can destructure multiple state objects as needed (as below)
+    const { user, basket } = useSelector(state => state.data);
+
+    const dispatch = useDispatch();
+
+    const handleAuth = () => {
+        if(user) {
+        dispatch(logoutInitiate());
+        }
+    }
+
     return (
         <nav className="header">
             <Link to="/">
@@ -38,11 +54,19 @@ const Header = () => {
             </div>
             <div className="header-nav">
                 <Link 
-                    to="/login" 
+                    to={`${user ? "/" : "/login"}`} 
                     className='header-link'>
-                    <div className="header-option">
-                        <span className="header-option1">Hello Guest</span>
-                        <span className="header-option2">Sign In</span>
+                    <div
+                        className="header-option"
+                        onClick={handleAuth}
+                        >
+                        <span className="header-option1">
+                            Hello, {user ? user.email : 'Guest'}{''}
+                        </span>
+                        {/* TODO: Add a logout dispatcher here */}
+                        <span className="header-option2">
+                            {user ? 'Sign Out' : 'Sign In'}
+                        </span>
                     </div>
                 </Link>
                 <Link 
@@ -54,12 +78,22 @@ const Header = () => {
                     </div>
                 </Link>
                 <Link 
+                    to="/login" 
+                    className='header-link'>
+                    <div className="header-option">
+                        <span className="header-option1">Your</span>
+                        <span className="header-option2">Prime</span>
+                    </div>
+                </Link>
+                <Link 
                     to="/checkout" 
                     className='header-link'>
                     <div className="header-basket">
                         <ShoppingCartOutlinedIcon />
                             {/* TODO: DYNAMIC COUNT RENDERING */}
-                        <span className="header-option2 basket-count">0</span>
+                        <span className="header-option2 basket-count">
+                            {basket ? basket.length : '0'}
+                        </span>
                     </div>
                 </Link>
             </div>
