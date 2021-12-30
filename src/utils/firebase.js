@@ -6,8 +6,6 @@ import { getFirestore } from 'firebase/firestore';
 
 import { getAuth } from "firebase/auth";
 
-// TODO: Add SDKs for Firebase products that you want to use
-
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 
@@ -17,21 +15,23 @@ import { getAuth } from "firebase/auth";
 
 // TODO: Refactor to store config in React-env / consider deployment
 
+const env = process.env;
+
 const firebaseConfig = {
 
-  apiKey: "AIzaSyAS_goOCJiOaz6xwuIlZD1q9k7F4GI2W8k",
+  apiKey: env.REACT_APP_API_KEY,
 
-  authDomain: "sc-clone-343d1.firebaseapp.com",
+  authDomain: env.REACT_APP_AUTH_DOMAIN,
 
-  projectId: "sc-clone-343d1",
+  projectId: env.REACT_APP_PROJECT_ID,
 
-  storageBucket: "sc-clone-343d1.appspot.com",
+  storageBucket: env.REACT_APP_STORAGE_BUCKET,
 
-  messagingSenderId: "1043961186384",
+  messagingSenderId: env.REACT_APP_MESSAGING_SENDER_ID,
 
-  appId: "1:1043961186384:web:3a68db3994a6376812e955",
+  appId: env.REACT_APP_APP_ID,
 
-  measurementId: "G-HEJ7C71YXV"
+  measurementId: env.REACT_APP_MEASUREMENT_ID
 
 };
 
