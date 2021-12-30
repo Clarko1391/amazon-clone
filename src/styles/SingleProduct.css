@@ -22,6 +22,9 @@
 
 .single-product-info {
   padding-left: 20px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-evenly; */
 }
 
 .single-product-title {
@@ -46,6 +49,20 @@
   color: #111;
   border-color: #a88734 #9c7e31 #846a29;
   cursor: pointer;
+  height: 30px;
+  margin-left: 20px;
+}
+
+.single-product-back-link{
+  height: 100%;
+  width: 100%;
+
+  background: transparent;
+
+  z-index: 2;
+
+  color: white;
+  text-decoration: none;
 }
 
 .single-product-description {

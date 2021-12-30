@@ -6,8 +6,11 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 import { useDispatch } from 'react-redux';
 
-import '../styles/Product.css';
+import uuid from 'react-uuid'
+
 import { addToBasket } from '../redux/actions';
+
+import '../styles/Product.css';
 
 
 const Product = ({ id, title, image, price, rating, specification, detail }) => {
@@ -18,6 +21,7 @@ const Product = ({ id, title, image, price, rating, specification, detail }) => 
 
         const item = {
             id,
+            uuid: uuid(),
             title,
             image,
             price,
@@ -33,7 +37,7 @@ const Product = ({ id, title, image, price, rating, specification, detail }) => 
     return (
         <div className='product'>
             <div className="info">
-                <Link to={`/products/${id}`}>
+                <Link to={`/product/${id}`}>
                     <p>{title}</p>
                 </Link>
                 <p className="price">

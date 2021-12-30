@@ -15,10 +15,13 @@ import { onAuthStateChanged } from '@firebase/auth';
 
 import { setUser } from './redux/actions';
 
-import Home      from './pages/Home';
-import Header    from './components/Header';
-import Login     from './pages/Login';
-import Register  from './pages/Register';
+import Home          from './pages/Home';
+import Header        from './components/Header';
+import Login         from './pages/Login';
+import Register      from './pages/Register';
+import SingleProduct from './pages/SingleProduct';
+import Checkout      from './pages/Checkout';
+
 
 import './App.css';
 
@@ -62,6 +65,26 @@ function App() {
                 <Home />
               </>
             }/>
+
+          <Route 
+            path="/product/:id" 
+            caseSensitive={false} 
+            element={
+              <>
+                <Header />
+                <SingleProduct />
+              </>
+            }/>
+
+          <Route 
+              path="/checkout" 
+              caseSensitive={false} 
+              element={ 
+                <>
+                  <Header />
+                  <Checkout />
+                </>
+              }/>
 
         </Routes>
       </div>

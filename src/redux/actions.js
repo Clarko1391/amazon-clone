@@ -112,3 +112,9 @@ export const addToBasket = (item) => ({
     type: types.ADD_TO_BASKET,
     payload: item,
 });
+
+// Remove from Basket Functionality
+export const removeFromBasket = (uuid) => ({
+    type: types.REMOVE_FROM_BASKET,
+    payload: uuid,
+});

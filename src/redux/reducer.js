@@ -19,6 +19,9 @@ const initialState = {
 
 
 const basketReducer = (state = initialState, action) => {
+
+    // let newBasket = [];
+    
     switch(action.type){
 
         case types.REGISTER_START:
@@ -65,6 +68,14 @@ const basketReducer = (state = initialState, action) => {
                 basket: newBasket,
             };
 
+        case types.REMOVE_FROM_BASKET:
+            const updatedBasket = [...state.basket];
+            const index = state.basket.findIndex((item => item.uuid === action.payload))
+            updatedBasket.splice(index, 1);
+            return{
+                ...state, 
+                basket: updatedBasket,
+            }
         default:
             return state;
     }
