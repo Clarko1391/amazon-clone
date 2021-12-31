@@ -15,6 +15,9 @@
     }
   }
   .back-top-container {
+    /* position: fixed; */
+    /* top: 0px; */
+    /* left: 0px; */
     height: 40px;
     text-align: center;
     width: 1470px;

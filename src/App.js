@@ -24,6 +24,7 @@ import Checkout      from './pages/Checkout';
 
 
 import './App.css';
+import Payment from './pages/Payment';
 
 
 function App() {
@@ -83,6 +84,16 @@ function App() {
                 <>
                   <Header />
                   <Checkout />
+                </>
+              }/>
+
+          <Route 
+              path="/payment" 
+              caseSensitive={false} 
+              element={ 
+                <>
+                  <Header />
+                  <Payment />
                 </>
               }/>
 

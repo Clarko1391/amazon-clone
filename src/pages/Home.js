@@ -83,12 +83,12 @@ const Home = () => {
                         }
                         )}
                     </div>
-                    <BackToTop />
                     <div 
                         style={{
-                            marginTop: '40px'
+                            marginTop: '40px',
+                            position: 'relative'
                         }}> 
-                        {/* Back to Top  */}
+                        <BackToTop />
                         </div>
                 </div>
             </div>
