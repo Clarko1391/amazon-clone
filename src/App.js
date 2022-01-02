@@ -9,6 +9,10 @@ import {
 
 import { useDispatch } from 'react-redux';
 
+import { loadStripe } from '@stripe/stripe-js';
+
+import { Elements } from '@stripe/react-stripe-js';
+
 import { auth } from './utils/firebase'
 
 import { onAuthStateChanged } from '@firebase/auth';
@@ -21,10 +25,16 @@ import Login         from './pages/Login';
 import Register      from './pages/Register';
 import SingleProduct from './pages/SingleProduct';
 import Checkout      from './pages/Checkout';
+import Payment       from './pages/Payment';
+
 
 
 import './App.css';
-import Payment from './pages/Payment';
+
+
+const stripeAPIKey = process.env.REACT_APP_STRIPE_API_KEY;
+
+const promise = loadStripe(stripeAPIKey)
 
 
 function App() {
@@ -93,7 +103,11 @@ function App() {
               element={ 
                 <>
                   <Header />
-                  <Payment />
+                  <Elements 
+                    stripe={promise}
+                      >
+                    <Payment />
+                  </Elements>
                 </>
               }/>
 
