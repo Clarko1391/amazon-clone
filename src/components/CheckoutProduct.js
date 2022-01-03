@@ -7,7 +7,7 @@ import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import '../styles/CheckoutProduct.css';
 import { removeFromBasket } from '../redux/actions';
 
-const CheckoutProduct = ({ uuid, id, title, image, rating, price }) => {
+const CheckoutProduct = ({ uuid, id, title, image, rating, price, hideButton }) => {
 
     const dispatch = useDispatch();
 
@@ -31,6 +31,7 @@ const CheckoutProduct = ({ uuid, id, title, image, rating, price }) => {
                 <div className="checkout-product-rating">
                     {Array(rating).fill().map((_, index) => <p key={index}> ⭐ </p>)}
                 </div>
+                {!hideButton && (
                 <button
                     onClick={handleRemoveItemFromBasket}
                 >
@@ -39,6 +40,7 @@ const CheckoutProduct = ({ uuid, id, title, image, rating, price }) => {
                         Remove from Basket
                     </i>
                 </button>
+                )}
             </div>
         </div>
     )
