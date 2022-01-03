@@ -26,7 +26,7 @@ import Register      from './pages/Register';
 import SingleProduct from './pages/SingleProduct';
 import Checkout      from './pages/Checkout';
 import Payment       from './pages/Payment';
-
+import Orders        from './pages/Orders';
 
 
 import './App.css';
@@ -108,6 +108,16 @@ function App() {
                       >
                     <Payment />
                   </Elements>
+                </>
+              }/>
+
+          <Route 
+              path="/orders" 
+              caseSensitive={false} 
+              element={ 
+                <>
+                  <Header />
+                  <Orders />
                 </>
               }/>
 

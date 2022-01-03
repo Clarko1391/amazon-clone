@@ -39,17 +39,21 @@ const Payment = () => {
     const [processing, setProcessing] = useState("");
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(true);
+
     const [clientSecret, setClientSecret] = useState(true);
 
     useEffect(() => {
         const getClientSecret = async () => {
             const response = await axios({
                 method: 'POST',
-                url: `/payments/create?total=${getBasketTotal(basket)}`,
+                // multiply subtotal by 100 to convert to cents from dollar amount
+                url: `/payments/create?total=${getBasketTotal(basket) * 100}`
             });
         setClientSecret(response.data.clientSecret)
         };
-        getClientSecret();
+        if(getBasketTotal(basket) > 0) {
+            getClientSecret();
+        }
     }, [basket]);
 
 
@@ -57,15 +61,28 @@ const Payment = () => {
         e.preventDefault();
         setProcessing(true);
         const payload = await stripe.confirmCardPayment(clientSecret, {
-            paymentMethod: {
-                card: elements.getElement(CardElement)
+            payment_method: {
+                card: await elements.getElement(CardElement)
             }
         }).then(({payment_intent}) => {
-            //...
+            // db query to store order details into firebase db
+            db.collection("users")
+                .doc(user && user.uid)
+                .collections("orders")
+                .doc(payment_intent.id)
+                .set({
+                    basket: basket,
+                    amount: payment_intent.amount,
+                    created: payment_intent.created,
+                });
             setSucceeded(true);
             setError(null);
             setProcessing(false);
             navigate('/orders');
+        }).catch(error => {
+            if(error.code === 402) {
+                console.log('card declined', error.message);
+            }
         })
     };
 
