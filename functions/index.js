@@ -29,12 +29,12 @@ app.get("/", (request, response) => {
 // a firebase runtime env configuration for safety
 // The api key is already added to the deployment environment as well
 app.post("/payments/create", async (request, response) => {
+        // console.log('hello');
         const total = request.query.total;
         const paymentIntent = await stripe.paymentIntents.create({
             amount: total,
             currency: 'cad',
         });
-        // console.log(paymentIntent.client_secret);
         response.status(201).send({
             clientSecret: paymentIntent.client_secret
         });

@@ -6,6 +6,10 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import { db } from '../utils/firebase';
 
+import { setDoc, doc } from 'firebase/firestore';
+
+import uuid from 'react-uuid';
+
 import axios from '../utils/axios';
 
 import { CardElement, 
@@ -16,6 +20,8 @@ import { CardElement,
 // CurrencyFOrmat used again here, going to try to avoid it
 
 import { getBasketTotal } from '../utils/BasketTotal';
+
+import { clearBasket } from '../redux/actions';
 
 import CheckoutProduct from '../components/CheckoutProduct';
 
@@ -57,32 +63,42 @@ const Payment = () => {
     }, [basket]);
 
 
+    const setDocToDB = async (docData) => {
+        
+        // const docRef = doc(db, 'users', user && user.uid);
+
+        const docRef = doc(db, 'users', user && user.uid, 'orders', uuid())
+
+        const payload = {
+                basket: basket,
+                amount: docData.amount,
+                created: docData.created,
+        };
+
+        // await addDoc(docRef, docData);
+
+        await setDoc(docRef, payload)
+    }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setProcessing(true);
         const payload = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
-                card: await elements.getElement(CardElement)
+                card: elements.getElement(CardElement)
             }
-        }).then(({payment_intent}) => {
+        }).then(({paymentIntent}) => {
+
             // db query to store order details into firebase db
-            db.collection("users")
-                .doc(user && user.uid)
-                .collections("orders")
-                .doc(payment_intent.id)
-                .set({
-                    basket: basket,
-                    amount: payment_intent.amount,
-                    created: payment_intent.created,
-                });
+            
+            setDocToDB(paymentIntent);
+
             setSucceeded(true);
             setError(null);
             setProcessing(false);
+            dispatch(clearBasket())
             navigate('/orders');
-        }).catch(error => {
-            if(error.code === 402) {
-                console.log('card declined', error.message);
-            }
         })
     };
 

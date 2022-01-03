@@ -75,7 +75,14 @@ const basketReducer = (state = initialState, action) => {
             return{
                 ...state, 
                 basket: updatedBasket,
-            }
+            };
+
+        case types.CLEAR_BASKET:
+            return{
+                ...state,
+                basket: [],
+            };
+
         default:
             return state;
     }

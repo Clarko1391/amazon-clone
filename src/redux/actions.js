@@ -118,3 +118,8 @@ export const removeFromBasket = (uuid) => ({
     type: types.REMOVE_FROM_BASKET,
     payload: uuid,
 });
+
+// Clear basket after checkout
+export const clearBasket = () => ({
+    type: types.CLEAR_BASKET,
+})
