@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fb9921fd.css",
+    "main.js": "/static/js/main.45b823a3.js",
+    "static/js/787.02bc6105.chunk.js": "/static/js/787.02bc6105.chunk.js",
+    "static/media/Banner5.jpg": "/static/media/Banner5.4aa74f4cb129ebb2d7bc.jpg",
+    "static/media/Amazon_Logo.png": "/static/media/Amazon_Logo.19e5df3e3e8811e0564a.png",
+    "static/media/Banner6.jpg": "/static/media/Banner6.ee0b94f630e122e2bbee.jpg",
+    "static/media/Banner3.jpg": "/static/media/Banner3.0acaccd8d667bcc63212.jpg",
+    "static/media/Banner4.jpg": "/static/media/Banner4.c2f98254394694b2a247.jpg",
+    "static/media/Banner2.jpg": "/static/media/Banner2.d35c8837dcbfbac6d88f.jpg",
+    "static/media/Banner1.jpg": "/static/media/Banner1.b35cf70d1daa9c8a7b1c.jpg",
+    "index.html": "/index.html",
+    "main.fb9921fd.css.map": "/static/css/main.fb9921fd.css.map",
+    "main.45b823a3.js.map": "/static/js/main.45b823a3.js.map",
+    "787.02bc6105.chunk.js.map": "/static/js/787.02bc6105.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fb9921fd.css",
+    "static/js/main.45b823a3.js"
+  ]
+}
